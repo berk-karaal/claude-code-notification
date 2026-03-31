@@ -1,0 +1,14 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "claude-code-notification",
+  "owner": {
+    "name": "berk-karaal"
+  },
+  "plugins": [
+    {
+      "name": "claude-code-notification",
+      "description": "Send push notifications when Claude finishes a task or needs input",
+      "source": "./plugin"
+    }
+  ]
+}
