@@ -50,3 +50,7 @@ Hook scripts log to the plugin data directory. Tail it to watch for errors durin
 ```sh
 tail -f ~/.claude/plugins/data/claude-code-notification-inline/logs/notification.log
 ```
+
+## Releasing
+
+See [RELEASING.md](RELEASING.md) for the full release workflow, versioning, and CI pipeline details.
