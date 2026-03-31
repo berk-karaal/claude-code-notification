@@ -16,6 +16,11 @@ log_warning() {
 
 mkdir -p "${BIN_DIR}" "${LOG_DIR}"
 
+# Strip log file to last 500 lines to prevent bloat
+if [[ -f "${LOG_FILE}" ]]; then
+  tail -n 500 "${LOG_FILE}" > "${LOG_FILE}.tmp" && mv "${LOG_FILE}.tmp" "${LOG_FILE}"
+fi
+
 # Read version from plugin.json (single source of truth)
 PLUGIN_VERSION=$(jq -r '.version' "${PLUGIN_JSON}" 2>/dev/null || python3 -c "import json; print(json.load(open('${PLUGIN_JSON}'))['version'])" 2>/dev/null)
 if [[ -z "${PLUGIN_VERSION}" ]]; then
