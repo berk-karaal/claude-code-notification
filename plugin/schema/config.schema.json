@@ -1,0 +1,102 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "claude-code-notification configuration",
+  "description": "Configuration for the claude-code-notification plugin. Used for both global (~/.config/claude-code-notification/config.json) and per-project (.claude-code-notification.json) configs. Per-project merges over global at field level.",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "$schema": {
+      "type": "string",
+      "description": "JSON Schema reference for editor autocompletion"
+    },
+    "ntfy": {
+      "type": "object",
+      "description": "ntfy.sh push notification backend. Sends HTTP POST to an ntfy server.",
+      "additionalProperties": false,
+      "properties": {
+        "enabled": {
+          "type": "boolean",
+          "description": "Enable or disable the ntfy backend",
+          "default": false
+        },
+        "topic": {
+          "type": "string",
+          "description": "ntfy topic name (required when enabled)",
+          "examples": ["my-claude-notifications"]
+        },
+        "server": {
+          "type": "string",
+          "description": "ntfy server URL",
+          "default": "https://ntfy.sh",
+          "examples": ["https://ntfy.sh", "https://ntfy.example.com"]
+        }
+      }
+    },
+    "system_notification": {
+      "type": "object",
+      "description": "Native OS desktop notification. Uses osascript on macOS and notify-send on Linux.",
+      "additionalProperties": false,
+      "properties": {
+        "enabled": {
+          "type": "boolean",
+          "description": "Enable or disable system notifications. Enabled by default on fresh installs.",
+          "default": true
+        }
+      }
+    },
+    "sound": {
+      "type": "object",
+      "description": "Audio playback backend. Uses afplay (macOS) or paplay/aplay (Linux).",
+      "additionalProperties": false,
+      "properties": {
+        "enabled": {
+          "type": "boolean",
+          "description": "Enable or disable sound notifications",
+          "default": false
+        },
+        "on_notification": {
+          "type": "string",
+          "description": "Path to audio file played on Notification events (permission/idle prompts)",
+          "examples": ["/path/to/chime.wav"]
+        },
+        "on_stop": {
+          "type": "string",
+          "description": "Path to audio file played on Stop events (task complete)",
+          "examples": ["/path/to/done.wav"]
+        },
+        "on_stop_failure": {
+          "type": "string",
+          "description": "Path to audio file played on StopFailure events (error). Falls back to on_stop if not set.",
+          "examples": ["/path/to/error.wav"]
+        }
+      }
+    },
+    "custom_script": {
+      "type": "object",
+      "description": "Custom script backend. Runs user-provided scripts with event context in environment variables (CCN_EVENT, CCN_TITLE, CCN_BODY, CCN_HOSTNAME, CCN_PROJECT).",
+      "additionalProperties": false,
+      "properties": {
+        "enabled": {
+          "type": "boolean",
+          "description": "Enable or disable the custom script backend",
+          "default": false
+        },
+        "on_notification": {
+          "type": "string",
+          "description": "Path to script executed on Notification events",
+          "examples": ["/path/to/notify.sh"]
+        },
+        "on_stop": {
+          "type": "string",
+          "description": "Path to script executed on Stop events",
+          "examples": ["/path/to/stop.sh"]
+        },
+        "on_stop_failure": {
+          "type": "string",
+          "description": "Path to script executed on StopFailure events",
+          "examples": ["/path/to/failure.sh"]
+        }
+      }
+    }
+  }
+}
