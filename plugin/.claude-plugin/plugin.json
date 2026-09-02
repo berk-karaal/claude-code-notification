@@ -1,6 +1,6 @@
 {
   "name": "claude-code-notification",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Send push notifications when Claude finishes a task or needs input",
   "author": {
     "name": "berk-karaal"
